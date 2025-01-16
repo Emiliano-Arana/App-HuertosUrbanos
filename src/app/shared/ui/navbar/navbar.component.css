@@ -7,8 +7,8 @@
   /* Resaltar la pestaña activa */
   .navbar-nav .nav-link.active {
     color: #28a746a5;
-    color: white;
     border-radius: 5px;
+    font-weight: 650;
   }
 
   .navbar-nav .nav-link {

@@ -30,3 +30,4 @@ export const GARDENS_ROUTES: Routes = [
     {path: 'mapa',component: MapaComponent},
     {path: 'garden-detail/:id', component: GardenDetailComponent}
 ]
+

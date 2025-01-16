@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import * as L from 'leaflet';
 import { Garden } from '../../core/models/garden.model';
 import { GardensService } from '../../core/services/gardens.service';
@@ -17,7 +17,7 @@ export class MapaComponent implements AfterViewInit{
   //lista de huertos
   gardens : Garden[] = [];
   
-  constructor(private gs:GardensService){}
+  constructor(private gs:GardensService,private router:Router){}
 
   //al iniciar
   ngAfterViewInit(){
@@ -46,22 +46,39 @@ export class MapaComponent implements AfterViewInit{
     this.listAllGardens();
   }
 
-  listAllGardens(){
-    //mediante el servicio obtiene todos los huertos
-    this.gs.getAllGardensList().subscribe(
-      data => {
-        this.gardens=data;
+  listAllGardens() {
+    this.gs.getAllGardensList().subscribe((data) => {
+      this.gardens = data;
 
-        //para cada huerto pone un marcador en las coordenadas guardadas
-        this.gardens.forEach((garden) => {
-          if (garden.latitude && garden.longitude) {
-            const marker = L.marker([garden.latitude, garden.longitude]).addTo(this.map!); // Crea un marcador en el mapa
-            marker.bindPopup(`<b>${garden.name}</b><br>${garden.description}`); // Agrega un popup al marcador
-          }
-        });
-      }
+      // Para cada huerto, agrega un marcador con las coordenadas almacenadas
+      this.gardens.forEach((garden) => {
+        if (garden.latitude && garden.longitude) {
+          const marker = L.marker([garden.latitude, garden.longitude]).addTo(this.map!);
 
-      
-    );
+          // Crea un popup con un enlace funcional
+          marker.bindPopup(`
+            <b>${garden.name}</b>
+            <br>
+            ${garden.description}
+            <br>
+            <a href="#" class="link-button" data-id="${garden.idGarden}">Ver detalles</a>
+          `);
+
+          // Escucha el evento 'popupopen' para conectar el enlace con Angular
+          marker.on('popupopen', () => {
+            const link = document.querySelector(`.link-button[data-id="${garden.idGarden}"]`);
+            link?.addEventListener('click', (event) => {
+              event.preventDefault();
+              this.navigateToGarden(garden.idGarden);
+            });
+          });
+        }
+      });
+    });
+  }
+
+  //ruta de los detalles del huerto seleccionado
+  navigateToGarden(id: number) {
+    this.router.navigate(['gardens/garden-detail', id]);
   }
 }
