@@ -1,0 +1,117 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4>Datos del usuario</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="nombre" 
+                placeholder="Ingresa tu nombre" 
+                [(ngModel)]="nombre" 
+                name="nombre" 
+                required 
+                pattern="^[a-zA-ZÀ-ÿ\s]{2,}$"
+                #nombreInput="ngModel" />
+              <div *ngIf="nombreInput.invalid && nombreInput.touched" class="text-danger">
+                <small *ngIf="nombreInput.errors?.['required']">El nombre es obligatorio.</small>
+                <small *ngIf="nombreInput.errors?.['pattern']">El nombre debe contener solo letras y tener entre 2 y 50 caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Campo Apellidos -->
+            <div class="mb-3">
+              <label for="apellidos" class="form-label">Apellidos</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="apellidos" 
+                placeholder="Ingresa tus apellidos" 
+                [(ngModel)]="apellidos" 
+                name="apellidos" 
+                required 
+                pattern="^[a-zA-ZÀ-ÿ\s]{2,}$"
+                #apellidosInput="ngModel" />
+              <div *ngIf="apellidosInput.invalid && apellidosInput.touched" class="text-danger">
+                <small *ngIf="apellidosInput.errors?.['required']">Los apellidos son obligatorios.</small>
+                <small *ngIf="apellidosInput.errors?.['pattern']">Los apellidos deben contener solo letras y tener entre 2 y 50 caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Campo Correo Electrónico -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                placeholder="Ingresa tu correo" 
+                [(ngModel)]="email" 
+                name="email" 
+                required 
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+                #emailInput="ngModel" />
+              <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                <small *ngIf="emailInput.errors?.['required']">El correo electrónico es obligatorio.</small>
+                <small *ngIf="emailInput.errors?.['pattern']">Debes ingresar un correo válido.</small>
+              </div>
+            </div>
+
+            <!-- Campo Contraseña Actual -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña actual</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                placeholder="Ingresa tu contraseña" 
+                [(ngModel)]="password" 
+                name="password" 
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                #passwordInput="ngModel" />
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                <small *ngIf="passwordInput.errors?.['pattern']">La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.</small>
+              </div>
+            </div>
+
+            <!-- Campo Nueva Contraseña -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Nueva contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="confirmPassword" 
+                placeholder="Crea una contraseña" 
+                [(ngModel)]="newPassword" 
+                name="confirmPassword" 
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                #confirmPasswordInput="ngModel" />
+              <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="text-danger">
+                <small *ngIf="confirmPasswordInput.errors?.['pattern']">La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100" [disabled]="userForm.invalid">
+              Guardar cambios
+            </button>
+          </form>
+
+          <!-- Mensaje de error global -->
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-danger w-100" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

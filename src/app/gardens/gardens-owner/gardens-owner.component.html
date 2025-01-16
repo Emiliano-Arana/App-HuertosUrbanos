@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Lista de huertos</h2>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Botón para crear un nuevo huerto -->
+    <button class="btn btn-success" [routerLink]="['add-garden']">Crear huerto</button>
+  </div>
+  <div *ngIf="!gardens || gardens.length === 0" class="alert alert-warning text-center">
+    No tienes ningún huerto registrado
+  </div>
+  <div class="row">
+    <!-- Iterar sobre la lista de huertos -->
+    <div class="col-md-4 mb-4" *ngFor="let garden of gardens">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ garden.name }}</h5>
+          <p class="card-text">{{ garden.description }}</p>
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['edit-garden', garden.idGarden]" class="btn btn-primary">Editar datos</a>
+            <!-- Botón para eliminar el huerto -->
+            <button 
+              class="btn btn-danger" 
+              (click)="openDeleteDialog(garden.idGarden)">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="showModal" (click)="closeDeleteDialog()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>¿Estás seguro de que deseas eliminar este huerto?</h3>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" (click)="closeDeleteDialog()">Cancelar</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+    </div>
+  </div>
+</div>

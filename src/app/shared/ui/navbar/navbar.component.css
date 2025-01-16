@@ -1,0 +1,56 @@
+/* Resaltar cuando el cursor pasa por encima de la pestaña */
+.navbar-nav .nav-link:hover {
+    background-color: #495057;
+    border-radius: 5px;
+  }
+  
+  /* Resaltar la pestaña activa */
+  .navbar-nav .nav-link.active {
+    color: #28a746a5;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .navbar-nav .nav-link {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Estilo para la información del usuario */
+  .user-info {
+    text-align: center;
+    color: white;
+  }
+  
+  /* Enlaces de inicio de sesión */
+  .navbar-nav .nav-link {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Eliminar subrayado del nombre del usuario */
+/* Eliminar subrayado del nombre del usuario */
+.user-name {
+  text-decoration: none; /* Elimina el subrayado */
+  color: #f8f9fa; /* Asegura que el nombre tenga un color claro */
+  margin-bottom: 0; /* Quita el espacio debajo del nombre */
+    font-size: 1.2rem;
+}
+
+/* Color para el rol, asegúrate de que no sea el mismo que el fondo */
+.user-role {
+  font-size: 0.8rem;
+  color: #d1d1d1b9; /* Gris claro para el rol */
+  margin-top: 0; /* Quita el espacio superior */
+}
+
+/* Opcional: agregar una transición para suavizar el cambio de color al hacer hover */
+.user-name, .user-role {
+  transition: color 0.3s ease;
+}
+
+/* Hover sobre el nombre de usuario (opcional) */
+.user-name:hover {
+  color: #28a745; /* Cambiar color al pasar el cursor, puedes poner el color que prefieras */
+}
+
+  

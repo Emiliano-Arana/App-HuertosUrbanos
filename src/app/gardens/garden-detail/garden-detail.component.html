@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <!-- Botón de Regresar -->
+  <a routerLink="/gardens" class="btn btn-primary mb-4">Regresar</a>
+
+  <!-- Información del Jardín -->
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">{{ garden.name }}</h3>
+      <p class="card-text">{{ garden.description }}</p>
+
+      <!-- Mapa -->
+      <div id="map" style="height: 400px; background-color: #e0e0e0;">
+        <div id="map"></div>
+      </div>
+
+      <hr>
+
+      <!-- Productos y Stock -->
+      <h4 class="mt-3">Productos:</h4>
+
+      <!-- Mostrar mensaje si no hay productos -->
+      <div *ngIf="!garden.huertoProductos || garden.huertoProductos.length === 0" class="alert alert-warning">
+        No hay productos por mostrar.
+      </div>
+
+      <!-- Mostrar tabla si hay productos -->
+      <table *ngIf="garden.huertoProductos && garden.huertoProductos.length > 0" class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Inventario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of garden.huertoProductos">
+            <td>{{ product.producto.name }}</td>
+            <td>{{ product.stock }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

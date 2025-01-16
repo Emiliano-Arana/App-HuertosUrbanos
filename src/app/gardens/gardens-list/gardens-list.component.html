@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Lista de huertos</h2>
+
+  <!-- Mostrar mensaje si no hay huertos -->
+  <div *ngIf="!gardens || gardens.length === 0" class="alert alert-warning text-center">
+    No hay huertos registrados.
+  </div>
+
+  <!-- Mostrar los huertos si existen -->
+  <div class="row" *ngIf="gardens && gardens.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let garden of gardens">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ garden.name }}</h5>
+          <p class="card-text">{{ garden.description }}</p>
+          <a [routerLink]="['garden-detail', garden.idGarden]" class="btn btn-primary">Ver detalles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

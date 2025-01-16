@@ -1,0 +1,137 @@
+<div class="container mt-4">
+  <a routerLink="/gardens" class="btn btn-secondary mb-4">Regresar</a>
+  <h2>Editar huerto</h2>
+  <form (ngSubmit)="onSubmit()" #editGardenForm="ngForm">
+    <!-- Campo: Nombre del Huerto -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre del huerto</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        [(ngModel)]="name"
+        name="name"
+        placeholder="Nombre del huerto"
+        required
+        minlength="3"
+        maxlength="50"
+        pattern="^[a-zA-ZÀ-ÿ\s]{2,}$"
+        #nameInput="ngModel"
+      />
+      <div *ngIf="nameInput.invalid && nameInput.touched" class="text-danger">
+        <small *ngIf="nameInput.errors?.['required']">Este campo es obligatorio.</small>
+        <small *ngIf="nameInput.errors?.['minlength']">Mínimo 3 caracteres.</small>
+        <small *ngIf="nameInput.errors?.['maxlength']">Máximo 50 caracteres.</small>
+        <small *ngIf="nameInput.errors?.['pattern']">Solo se permiten caracteres alfanuméricos y espacios.</small>
+      </div>
+    </div>
+
+    <!-- Campo: Descripción -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea
+        id="description"
+        class="form-control"
+        [(ngModel)]="description"
+        name="description"
+        rows="3"
+        placeholder="Descripción del huerto"
+        required
+        minlength="10"
+        maxlength="300"
+        pattern="^[a-zA-ZÀ-ÿ\s.,]{2,}$"
+        #descriptionInput="ngModel"
+      ></textarea>
+      <div *ngIf="descriptionInput.invalid && descriptionInput.touched" class="text-danger">
+        <small *ngIf="descriptionInput.errors?.['required']">Este campo es obligatorio.</small>
+        <small *ngIf="descriptionInput.errors?.['minlength']">Mínimo 10 caracteres.</small>
+        <small *ngIf="descriptionInput.errors?.['maxlength']">Máximo 300 caracteres.</small>
+        <small *ngIf="descriptionInput.errors?.['pattern']">Solo se permiten caracteres alfanuméricos, comas y puntos.</small>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="mb-3">
+      <label for="map" class="form-label">Ubicación en el mapa</label>
+      <div id="map" style="height: 400px; border: 1px solid #ccc;"></div>
+    </div>
+
+    <!-- Sección: Productos -->
+    <h3 class="mt-4">Productos</h3>
+    <div class="mb-3">
+      <label for="product-select" class="form-label">Seleccionar producto</label>
+      <select
+        id="product-select"
+        [(ngModel)]="selectedProduct"
+        name="selectedProduct"
+        class="form-control"
+      >
+        <option *ngFor="let product of availableProducts" [ngValue]="product">
+          {{ product.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Inventario</label>
+      <input
+        type="number"
+        id="stock"
+        [(ngModel)]="stock"
+        name="stock"
+        class="form-control"
+        min="1"
+        placeholder="Cantidad"
+        required
+      />
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="addProduct()"
+      [disabled]="!selectedProduct || stock < 1"
+    >
+      Agregar producto
+    </button>
+
+    <!-- Tabla de productos -->
+    <table class="table table-bordered mt-4">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Inventario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of gardenProducts">
+          <td>{{ p.producto.name }}</td>
+          <td>
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              type="number"
+              [(ngModel)]="p.stock"
+              (change)="updateProductStock(p, p.stock)"
+              class="form-control"
+              min="1"
+            />
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="removeProduct(p.idGardenProduct)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+    [disabled]="editGardenForm.invalid || !selectedLatitude || !selectedLongitude"
+    type="submit" class="btn btn-success">Guardar cambios</button>
+  </form>
+</div>

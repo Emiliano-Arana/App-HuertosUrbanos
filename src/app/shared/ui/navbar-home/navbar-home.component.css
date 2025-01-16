@@ -1,0 +1,12 @@
+/* Opcional: Estiliza los enlaces activos */
+.navbar .nav-link.active {
+    font-weight: bold;
+    background-color: #28a746b8 !important;
+    color:white;
+  }
+  
+  /* Opcional: Margen inferior para separar la barra del contenido */
+  .navbar {
+    margin-bottom: 1rem;
+  }
+  

@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4>Iniciar sesión</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()">
+            <!-- Campo de correo electrónico -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Ingresa tu correo"
+                [(ngModel)]="email"
+                name="email"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                #emailInput="ngModel"
+              />
+              <!-- Posibles Errores Relacionados con el correo -->
+              <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                <small *ngIf="emailInput.errors?.['required']">El correo es obligatorio.</small>
+                <small *ngIf="emailInput.errors?.['pattern']">Debes ingresar un correo válido.</small>
+              </div>
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Ingresa tu contraseña"
+                [(ngModel)]="password"
+                name="password"
+                required
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                #passwordInput="ngModel"
+              />
+              <!-- Posibles errores relacionados con el campo de contraseña -->
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                <small *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</small>
+                <small *ngIf="passwordInput.errors?.['pattern']">
+                  La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.
+                </small>
+              </div>
+            </div>
+
+            <!-- Botón de envío -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="emailInput.invalid || passwordInput.invalid"
+            >
+              Ingresar
+            </button>
+          </form>
+
+          <!-- Mensaje de error general -->
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <!-- Pie de página -->
+        <div class="card-footer text-center">
+          <small>¿No tienes una cuenta? <a routerLink="/register">Regístrate aquí</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

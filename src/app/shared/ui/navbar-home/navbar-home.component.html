@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Logo o título de la barra -->
+      <a class="navbar-brand" href="/">🌿</a>
+  
+      <!-- Botón para colapsar -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#secondaryNavbar"
+        aria-controls="secondaryNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Enlaces de navegación -->
+      <div class="collapse navbar-collapse" id="secondaryNavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              aria-current="page"
+            >
+              Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/about"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Acerca de
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/help"
+              routerLinkActive="active"
+              aria-current="page"
+            >
+              Ayuda
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

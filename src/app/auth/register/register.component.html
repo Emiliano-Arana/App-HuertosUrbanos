@@ -1,0 +1,146 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4>Registro</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                placeholder="Ingresa tu nombre"
+                [(ngModel)]="nombre"
+                name="nombre"
+                required
+                pattern="^[a-zA-ZÀ-ÿ\s]{2,}$"
+                #nombreInput="ngModel"
+              />
+              <div *ngIf="nombreInput.invalid && nombreInput.touched" class="text-danger">
+                <small *ngIf="nombreInput.errors?.['required']">El nombre es obligatorio.</small>
+                <small *ngIf="nombreInput.errors?.['pattern']">
+                  El nombre debe tener al menos 2 caracteres y solo contener letras y espacios.
+                </small>
+              </div>
+            </div>
+
+            <!-- Campo Apellidos -->
+            <div class="mb-3">
+              <label for="apellidos" class="form-label">Apellidos</label>
+              <input
+                type="text"
+                class="form-control"
+                id="apellidos"
+                placeholder="Ingresa tus apellidos"
+                [(ngModel)]="apellidos"
+                name="apellidos"
+                required
+                pattern="^[a-zA-ZÀ-ÿ\s]{2,}$"
+                #apellidosInput="ngModel"
+              />
+              <div *ngIf="apellidosInput.invalid && apellidosInput.touched" class="text-danger">
+                <small *ngIf="apellidosInput.errors?.['required']">Los apellidos son obligatorios.</small>
+                <small *ngIf="apellidosInput.errors?.['pattern']">
+                  Los apellidos deben tener al menos 2 caracteres y solo contener letras y espacios.
+                </small>
+              </div>
+            </div>
+
+            <!-- Campo Correo Electrónico -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Ingresa tu correo"
+                [(ngModel)]="email"
+                name="email"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                #emailInput="ngModel"
+              />
+              <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                <small *ngIf="emailInput.errors?.['required']">El correo es obligatorio.</small>
+                <small *ngIf="emailInput.errors?.['pattern']">Ingresa un correo válido.</small>
+              </div>
+            </div>
+
+            <!-- Campo Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Crea una contraseña"
+                [(ngModel)]="password"
+                name="password"
+                required
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                #passwordInput="ngModel"
+              />
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                <small *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</small>
+                <small *ngIf="passwordInput.errors?.['pattern']">
+                  La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.
+                </small>
+              </div>
+            </div>
+
+            <!-- Campo Confirmar Contraseña -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                placeholder="Repite tu contraseña"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                required
+                (ngModelChange)="validatePasswords()"
+                #confirmPasswordInput="ngModel"
+              />
+              <div *ngIf="confirmPasswordInput.touched && passwordsDontMatch" class="text-danger">
+                <small>Las contraseñas no coinciden.</small>
+              </div>
+            </div>
+
+            <!-- Checkbox Propietario -->
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="isOwner"
+                [(ngModel)]="isOwner"
+                name="isOwner"
+              />
+              <label class="form-check-label" for="isOwner">¿Eres propietario?</label>
+            </div>
+
+            <!-- Botón de Envío -->
+            <button type="submit" class="btn btn-success w-100" [disabled]="registerForm.invalid || passwordsDontMatch">
+              Registrarse
+            </button>
+          </form>
+
+          <!-- Mensaje de Error Global -->
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer text-center">
+          <small>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
